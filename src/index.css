@@ -1,0 +1,25 @@
+* {
+  all: unset;
+}
+
+/* Thanks to L. David Baron for this: https://twitter.com/davidbaron/status/794138427952222210 */
+base, basefont, datalist, head, meta, script, style, title,
+noembed, param, template {
+  display: none;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.clearfix {
+  overflow: hidden;
+  clear: both;
+}
