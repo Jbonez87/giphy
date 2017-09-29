@@ -13,7 +13,10 @@ class SearchForm extends Component {
       query: '',
       gifs: [],
       count: 0,
+      offSet: 0,
       totalCount: 0,
+      limit: 25,
+      options: [25, 50, 75, 100],
     }
     this.makeGifs = this.makeGifs.bind(this);
     this.getGifs = this.getGifs.bind(this);
@@ -34,9 +37,9 @@ class SearchForm extends Component {
     }
   }
   async getGifs() {
-    let gifs = await fetch(`${baseUrl}${apiKey}&q=${this.state.query}`)
+    let gifs = await fetch(`${baseUrl}${apiKey}&q=${this.state.query}&limit=${this.state.limit}&offSet=${this.state.offSet}`)
     let parsedGifs = await gifs.json()
-    console.log(parsedGifs);
+    // console.log(parsedGifs);
     this.setState({
       gifs: parsedGifs.data,
       count: parsedGifs.pagination.count,
@@ -51,6 +54,7 @@ class SearchForm extends Component {
       gifs: [],
       count: 0,
       totalCount: 0,
+      limit: 25,
     });
   }
   makeGifs(gifs) {
@@ -65,6 +69,16 @@ class SearchForm extends Component {
     })
   }
   render() {
+    const options = this.state.options.map((option, idx) => {
+      return (
+        <option
+          key={idx}
+          value={option}
+        >
+          {option}
+        </option>
+      );
+    })
     return (
       <div className="form-container clearfix">
         <div className="form clearfix">
@@ -75,6 +89,14 @@ class SearchForm extends Component {
               onChange={this.handleChange}
               placeholder="Search for gifs!"
             />
+            <label>Gifs per page</label>
+            <select
+              name="limit"
+              onChange={this.handleChange}
+              value={this.state.limit}
+            >
+              {options}
+            </select>
             <button
               className="search-button"
               id="go"
