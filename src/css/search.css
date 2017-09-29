@@ -36,7 +36,7 @@
   width: 100%;
 }
 
-#go, #clear {
+#go, #clear, select {
   padding: 8px 10px 8px 10px;
   background: white;
   transition: all .4s;
@@ -80,8 +80,13 @@
 select {
   padding: 8px;
   background: white;
-  width: 80px;
-  border: 2px solid blue;
+  width: 50px;
+  border: 2px solid rgb(32, 102, 184);
   text-align: center;
   margin: 0 10px 0 10px;
+}
+
+select:hover {
+  background: rgb(32, 102, 184);
+  color: white;
 }
