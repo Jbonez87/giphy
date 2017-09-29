@@ -87,6 +87,7 @@ class SearchForm extends Component {
               name="query"
               value={this.state.query}
               onChange={this.handleChange}
+              onKeyUp={this.handleKeyUp}
               placeholder="Search for gifs!"
             />
             <label>Gifs per page</label>
