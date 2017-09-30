@@ -78,5 +78,3 @@ Dropdown.propTypes = {
 };
 
 export default Dropdown;
-
-// ReactDOM.render(<Dropdown options={['Select an option','Leave a message', 'Ask for a quote', 'Make a suggestion']} />, document.getElementById('app'));
