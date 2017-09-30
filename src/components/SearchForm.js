@@ -76,7 +76,7 @@ class SearchForm extends Component {
             <img
               src={gif.images.downsized_large.url}
               alt=""
-              clasName="gif" 
+              className="gif"
             />
           </div>
         </li>
