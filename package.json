@@ -49,9 +49,7 @@
     "deploy": "gh-pages -d build"
   },
   "homepage": "http://jbonez.github.io/giphy",
-  "devDependencies": {
-    "gh-pages": "^1.0.0"
-  },
+  "devDependencies": {},
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
