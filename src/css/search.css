@@ -37,6 +37,7 @@
 }
 
 #go {
+  cursor: pointer;
   color: rgb(12, 177, 93);
   border: 2px solid rgb(12, 177, 93);
 }
@@ -47,6 +48,7 @@
 }
 
 #clear {
+  cursor: pointer;
   margin-left: 10px;
   color: rgb(182, 20, 20);
   border: 2px solid rgb(182, 20, 20);
@@ -73,6 +75,7 @@
 }
 
 #select {
+  cursor: pointer;
   padding: 8px;
   background: white;
   color: rgb(32, 102, 184);
@@ -82,7 +85,7 @@
   margin: 0 10px 0 10px;
 }
 
-select:hover {
+#select:hover {
   background: rgb(32, 102, 184);
   color: white;
 }
