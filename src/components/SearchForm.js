@@ -102,6 +102,7 @@ class SearchForm extends Component {
           />
           <label>Gifs per page</label>
           <select
+            id="select"
             name="limit"
             onChange={this.handleSelect}
             value={this.state.limit}
