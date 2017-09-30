@@ -12,7 +12,11 @@ class App extends Component {
         <SearchForm />
         <footer>
           <p>
-            &copy; <span>GiphySearch</span> {new Date().getFullYear()} | Powered By GIPHY | Made with &hearts; by <a href="https://www.linkedin.com/in/john-castrillon-a50141b8/">
+            &copy; <span>GiphySearch</span> {new Date().getFullYear()} | Powered By GIPHY | Made with &hearts; by <a
+                href="https://www.linkedin.com/in/john-castrillon-a50141b8/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
               John Castrillon
             </a>
           </p>
