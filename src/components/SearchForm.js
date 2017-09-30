@@ -73,7 +73,11 @@ class SearchForm extends Component {
       return (
         <li key={gif.id} className="search-item">
           <div className="search">
-            <img src={gif.images.downsized_large.url} alt="" />
+            <img
+              src={gif.images.downsized_large.url}
+              alt=""
+              clasName="gif" 
+            />
           </div>
         </li>
       );
