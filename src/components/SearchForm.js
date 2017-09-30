@@ -23,6 +23,7 @@ class SearchForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.clearGifs = this.clearGifs.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
   handleChange(e) {
     e.preventDefault();
@@ -36,10 +37,19 @@ class SearchForm extends Component {
       this.getGifs();
     }
   }
+  async handleSelect(e) {
+    e.preventDefault();
+    await this.setState({
+      [e.target.name]: e.target.value,
+    });
+    if(this.state.query.length > 0) {
+      await this.getGifs();
+    }
+  }
   async getGifs() {
     let gifs = await fetch(`${baseUrl}${apiKey}&q=${this.state.query}&limit=${this.state.limit}&offSet=${this.state.offSet}`)
     let parsedGifs = await gifs.json()
-    // console.log(parsedGifs);
+    console.log(parsedGifs);
     this.setState({
       gifs: parsedGifs.data,
       count: parsedGifs.pagination.count,
@@ -82,39 +92,39 @@ class SearchForm extends Component {
     return (
       <div className="form-container clearfix">
         <div className="form clearfix">
-            <input
-              type="text"
-              name="query"
-              value={this.state.query}
-              onChange={this.handleChange}
-              onKeyUp={this.handleKeyUp}
-              placeholder="Search for gifs!"
-            />
-            <label>Gifs per page</label>
-            <select
-              name="limit"
-              onChange={this.handleChange}
-              value={this.state.limit}
-            >
-              {options}
-            </select>
-            <button
-              className="search-button"
-              id="go"
-              type="button"
-              onClick={this.getGifs}
-              onKeyUp={this.handleKeyUp}
-            >
-              Go
-            </button>
-            <button
-              className="search-button"
-              id="clear"
-              type="button"
-              onClick={this.clearGifs}
-            >
-              Clear
-            </button>
+          <input
+            type="text"
+            name="query"
+            value={this.state.query}
+            onChange={this.handleChange}
+            onKeyUp={this.handleKeyUp}
+            placeholder="Search for gifs!"
+          />
+          <label>Gifs per page</label>
+          <select
+            name="limit"
+            onChange={this.handleSelect}
+            value={this.state.limit}
+          >
+            {options}
+          </select>
+          <button
+            className="search-button"
+            id="go"
+            type="button"
+            onClick={this.getGifs}
+            onKeyUp={this.handleKeyUp}
+          >
+            Go
+          </button>
+          <button
+            className="search-button"
+            id="clear"
+            type="button"
+            onClick={this.clearGifs}
+          >
+            Clear
+          </button>
         </div>
         <span
           className="results clearfix"
