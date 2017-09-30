@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchResult from './SearchResult';
+// import Dropdown from './Dropdown';
 
 import '../css/search.css';
 
