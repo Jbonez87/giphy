@@ -75,6 +75,7 @@
 select {
   padding: 8px;
   background: white;
+  color: rgb(32, 102, 184);
   width: 50px;
   border: 2px solid rgb(32, 102, 184);
   text-align: center;
