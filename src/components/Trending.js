@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const trendThemes = {
-  clearfix: `overflow: hidden;
-  clear: both;`,
-};
-
 const ResultsContainer = styled.div`
   position: absolute;
   display: block;
   padding: 20px;
   margin: 0 0 30px 0;
-  ${trendThemes.clearfix}
+  overflow: hidden;
+  clear: both;
 `;
 
 const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';

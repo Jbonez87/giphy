@@ -51,7 +51,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  padding: 8px 10px 8px 10px;
+  padding: 10px;
   background: white;
   transition: all .4s;
   cursor: pointer;
@@ -141,7 +141,7 @@ class SearchForm extends Component {
     })
   }
   render() {
-    let trendingCheck = this.state.isTrending === true ? <Trending 
+    const trendingCheck = this.state.isTrending === true ? <Trending 
       makeGifs={this.makeGifs}
     /> : (
         <ResultsContainer>
@@ -149,7 +149,11 @@ class SearchForm extends Component {
           {this.makeGifs(this.state.gifs)}
         </ul>
         </ResultsContainer>
-    ); 
+    );
+    const resultCount = this.state.isTrending === true ? <ResultCount>Trending Gifs</ResultCount> :
+      <ResultCount>
+        {this.state.count} of {this.state.totalCount} results
+      </ResultCount>;
     return (
       <FormContainer>
         <Form>
@@ -170,9 +174,7 @@ class SearchForm extends Component {
             Search
           </Button>
         </Form>
-        <ResultCount>
-          {this.state.count} of {this.state.totalCount} results
-        </ResultCount>
+        {resultCount}
         {trendingCheck}
       </FormContainer>
     );
