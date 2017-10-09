@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+const trendThemes = {
+  clearfix: `overflow: hidden;
+  clear: both;`,
+};
+
+const ResultsContainer = styled.div`
+  position: absolute;
+  display: block;
+  padding: 20px;
+  margin: 0 0 30px 0;
+  ${trendThemes.clearfix}
+`;
 
 const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
 
@@ -20,9 +34,9 @@ class Trending extends Component {
   }
   render() {
     return (
-      <div className="results-container clearfix">
+      <ResultsContainer>
         {this.props.makeGifs(this.state.trending)}
-      </div>
+      </ResultsContainer>
     );
   }
 }
