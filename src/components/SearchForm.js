@@ -1,34 +1,38 @@
 import React, { Component } from 'react';
-import SearchResult from './SearchResult';
-// import Dropdown from './Dropdown';
+import Trending from './Trending';
+// import SearchResult from './SearchResult';
 
 import '../css/search.css';
 
-const baseUrl = 'https://api.giphy.com/v1/gifs/search?api_key=';
 const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
 
 class SearchForm extends Component {
   constructor() {
     super();
     this.state = {
+      isTrending: true,
       query: '',
       gifs: [],
       count: 0,
       offSet: 0,
       totalCount: 0,
-      limit: 25,
-      options: [25, 50, 75, 100],
+      limit: 1000,
     }
     this.makeGifs = this.makeGifs.bind(this);
     this.getGifs = this.getGifs.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.clearGifs = this.clearGifs.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
   handleChange(e) {
     e.preventDefault();
+    if(this.state.query === '') {
+      this.setState({
+        isTrending: true,
+      })
+    }
     this.setState({
+      isTrending: false,
       [e.target.name]: e.target.value,
     });
   }
@@ -38,19 +42,16 @@ class SearchForm extends Component {
       this.getGifs();
     }
   }
-  async handleSelect(e) {
+  handleBlur(e) {
     e.preventDefault();
-    await this.setState({
-      [e.target.name]: e.target.value,
-    });
-    if(this.state.query.length > 0) {
-      await this.getGifs();
-    }
+    this.getGifs();
   }
   async getGifs() {
-    let gifs = await fetch(`${baseUrl}${apiKey}&q=${this.state.query}&limit=${this.state.limit}&offSet=${this.state.offSet}`)
+    let url = new URL(`/v1/gifs/search?api_key=${apiKey}&q=${this.state.query}&limit=${this.state.limit}&offSet=${this.state.offSet}`, 'https://api.giphy.com')
+    let gifs = await fetch(url)
+    // console.log(url);
     let parsedGifs = await gifs.json()
-    console.log(parsedGifs);
+    // console.log(parsedGifs);
     this.setState({
       gifs: parsedGifs.data,
       count: parsedGifs.pagination.count,
@@ -58,21 +59,11 @@ class SearchForm extends Component {
     })
     this.makeGifs(this.state.gifs)
   }
-  clearGifs(e) {
-    e.preventDefault();
-    this.setState({
-      query: '',
-      gifs: [],
-      count: 0,
-      totalCount: 0,
-      limit: 25,
-    });
-  }
   makeGifs(gifs) {
     return gifs.map(gif => {
       return (
         <li key={gif.id} className="search-item">
-          <div className="search">
+          <div className="search-container">
             <img
               src={gif.images.downsized_large.url}
               alt=""
@@ -84,16 +75,15 @@ class SearchForm extends Component {
     })
   }
   render() {
-    const options = this.state.options.map((option, idx) => {
-      return (
-        <option
-          key={idx}
-          value={option}
-        >
-          {option}
-        </option>
-      );
-    })
+    let trendingCheck = this.state.isTrending === true ? <Trending 
+      makeGifs={this.makeGifs}
+    /> : (
+      <div className="results-container clearfix">
+        <ul>
+          {this.makeGifs(this.state.gifs)}
+        </ul>
+      </div>
+    ); 
     return (
       <div className="form-container clearfix">
         <div className="form clearfix">
@@ -102,46 +92,26 @@ class SearchForm extends Component {
             name="query"
             value={this.state.query}
             onChange={this.handleChange}
+            onBlur={this.handleBlur}
             onKeyUp={this.handleKeyUp}
             placeholder="Search for gifs!"
           />
-          <label>Gifs per page</label>
-          <select
-            id="select"
-            name="limit"
-            onChange={this.handleSelect}
-            value={this.state.limit}
-          >
-            {options}
-          </select>
           <button
             className="search-button"
-            id="go"
+            id="search"
             type="button"
             onClick={this.getGifs}
             onKeyUp={this.handleKeyUp}
           >
-            Go
-          </button>
-          <button
-            className="search-button"
-            id="clear"
-            type="button"
-            onClick={this.clearGifs}
-          >
-            Clear
+            Search
           </button>
         </div>
         <span
           className="results clearfix"
-        >{this.state.count} of {this.state.totalCount} results
+        >
+          {this.state.count} of {this.state.totalCount} results
         </span>
-        <div className="results-container clearfix">
-          <SearchResult
-            gifs={this.state.gifs}
-            makeGifs={this.makeGifs}
-          />
-        </div>
+        {trendingCheck}
       </div>
     );
   }

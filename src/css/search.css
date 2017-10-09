@@ -1,7 +1,7 @@
 .search-item {
   list-style: none;
   display: inline;
-  float: right;
+  /* float: right; */
   padding: 5px;
   margin: 0;
 }
@@ -30,19 +30,19 @@
   margin-left: 10px;
 }
 
-#go, #clear, select {
+#search, #clear, select {
   padding: 8px 10px 8px 10px;
   background: white;
   transition: all .4s;
 }
 
-#go {
+#search {
   cursor: pointer;
   color: rgb(12, 177, 93);
   border: 2px solid rgb(12, 177, 93);
 }
 
-#go:hover {
+#search:hover {
   background: rgb(12, 177, 93);
   color: white;
 }
