@@ -5,8 +5,14 @@ import Trending from './Trending';
 const SearchItem = styled.li`
   list-style: none;
   display: inline;
+  position: ${props => props.position};
   padding: 5px;
-  margin: 0;
+  margin: ${props => props.margin || 0};
+  border: ${props => props.border || 'none'};
+`;
+
+const SearchContainer = styled.div`
+  padding: 10px;
 `;
 
 const GifContainer = styled.div`
@@ -78,6 +84,8 @@ class SearchForm extends Component {
     super();
     this.state = {
       isTrending: true,
+      querySent: false,
+      pastTerms: [],
       query: '',
       gifs: [],
       count: 0,
@@ -89,7 +97,9 @@ class SearchForm extends Component {
     this.getGifs = this.getGifs.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
+    this.storeTerms = this.storeTerms.bind(this);
+    this.buildTerms = this.buildTerms.bind(this);
+    this.searchAgain = this.searchAgain.bind(this);
   }
   handleChange(e) {
     e.preventDefault();
@@ -109,17 +119,37 @@ class SearchForm extends Component {
       this.getGifs();
     }
   }
-  handleBlur(e) {
+  storeTerms(term) {
+    this.state.pastTerms.push(term)
+  }
+  buildTerms(terms) {
+    return terms.map(term => {
+      return <SearchItem
+              border="2px solid green"
+              margin="0 10px 0 10px"
+              position="relative"
+              onClick={this.searchAgain}      
+             >
+              {term}
+            </SearchItem>;
+    })
+  }
+  async searchAgain(e) {
     e.preventDefault();
-    this.getGifs();
+    await this.setState({
+      query: e.target.innerText,
+    })
+    await this.getGifs();
   }
   async getGifs() {
+    this.storeTerms(this.state.query)
     let url = new URL(`/v1/gifs/search?api_key=${apiKey}&q=${this.state.query}&limit=${this.state.limit}&offSet=${this.state.offSet}`, 'https://api.giphy.com')
     let gifs = await fetch(url)
     // console.log(url);
     let parsedGifs = await gifs.json()
     // console.log(parsedGifs);
     this.setState({
+      querySent: true,
       gifs: parsedGifs.data,
       count: parsedGifs.pagination.count,
       totalCount: parsedGifs.pagination.total_count,
@@ -150,33 +180,42 @@ class SearchForm extends Component {
         </ul>
         </ResultsContainer>
     );
+
     const resultCount = this.state.isTrending === true ? <ResultCount>Trending Gifs</ResultCount> :
       <ResultCount>
         {this.state.count} of {this.state.totalCount} results
       </ResultCount>;
+      
     return (
-      <FormContainer>
-        <Form>
-          <Input
-            type="text"
-            name="query"
-            value={this.state.query}
-            onChange={this.handleChange}
-            onBlur={this.handleBlur}
-            onKeyUp={this.handleKeyUp}
-            placeholder="Search for gifs!"
-          />
-          <Button
-            type="button"
-            onClick={this.getGifs}
-            onKeyUp={this.handleKeyUp}
-          >
-            Search
+      <div>
+        <FormContainer>
+          <Form>
+            <Input
+              type="text"
+              name="query"
+              value={this.state.query}
+              onChange={this.handleChange}
+              onKeyUp={this.handleKeyUp}
+              placeholder="Search for gifs!"
+            />
+            <Button
+              type="button"
+              onClick={this.getGifs}
+              onKeyUp={this.handleKeyUp}
+            >
+              Search
           </Button>
-        </Form>
-        {resultCount}
-        {trendingCheck}
-      </FormContainer>
+          </Form>
+          {resultCount}
+          <SearchContainer>
+            <p>Past Searches:</p>
+            <ul>
+              {this.state.querySent === true ? this.buildTerms(this.state.pastTerms) : null}
+            </ul>
+          </SearchContainer>
+          {trendingCheck}
+        </FormContainer>
+      </div>
     );
   }
 }
