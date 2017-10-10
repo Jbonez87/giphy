@@ -6,6 +6,7 @@ const SearchItem = styled.li`
   list-style: none;
   display: inline;
   position: ${props => props.position};
+  color: ${props => props.color || 'black'};
   padding: 5px;
   margin: ${props => props.margin || 0};
   border: ${props => props.border || 'none'};
@@ -125,9 +126,10 @@ class SearchForm extends Component {
   buildTerms(terms) {
     return terms.map(term => {
       return <SearchItem
-              border="2px solid green"
+              border="2px solid rgb(12, 177, 93)"
               margin="0 10px 0 10px"
               position="relative"
+              color="rgb(12, 177, 93)"
               onClick={this.searchAgain}      
              >
               {term}
