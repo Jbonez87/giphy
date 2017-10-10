@@ -26,7 +26,7 @@ const Gif = styled.img`
   max-height: 300px;
 `;
 
-const ResultsContainer = styled.div`
+export const ResultsContainer = styled.div`
   position: absolute;
   display: block;
   padding: 20px;
