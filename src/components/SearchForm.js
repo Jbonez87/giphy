@@ -60,8 +60,6 @@ class SearchForm extends Component {
       this.setState({
         isTrending: true,
       })
-      return null;
-
     }
     this.state.pastTerms.push(term)
   }
@@ -82,6 +80,7 @@ class SearchForm extends Component {
   async searchAgain(e) {
     e.preventDefault();
     await this.setState({
+      isTrending: false,
       query: e.target.innerText,
     })
     await this.getGifs();
