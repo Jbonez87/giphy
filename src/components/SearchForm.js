@@ -39,7 +39,7 @@ class SearchForm extends Component {
   }
   handleChange(e) {
     e.preventDefault();
-    if(e.target.value === '') {
+    if(this.state.query === '') {
       this.setState({
         isTrending: true,
       })
@@ -61,6 +61,7 @@ class SearchForm extends Component {
         isTrending: true,
       })
       return null;
+
     }
     this.state.pastTerms.push(term)
   }
