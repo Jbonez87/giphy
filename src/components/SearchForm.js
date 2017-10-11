@@ -60,6 +60,7 @@ class SearchForm extends Component {
       this.setState({
         isTrending: true,
       })
+      return null
     }
     this.state.pastTerms.push(term)
   }
