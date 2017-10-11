@@ -1,82 +1,17 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import {
+  SearchItem,
+  SearchContainer,
+  GifContainer,
+  Gif,
+  ResultsContainer,
+  FormContainer,
+  Form,
+  Input,
+  Button,
+  ResultCount
+} from './ui';
 import Trending from './Trending';
-
-const SearchItem = styled.li`
-  list-style: none;
-  display: inline;
-  position: ${props => props.position};
-  color: ${props => props.color || 'black'};
-  padding: 5px;
-  margin: ${props => props.margin || 0};
-  border: ${props => props.border || 'none'};
-`;
-
-const SearchContainer = styled.div`
-  padding: 10px;
-`;
-
-const GifContainer = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const Gif = styled.img`
-  max-width: 300px;
-  max-height: 300px;
-`;
-
-export const ResultsContainer = styled.div`
-  position: absolute;
-  display: block;
-  padding: 20px;
-  margin: 0 0 30px 0;
-  overflow: hidden;
-  clear: both;
-`;
-
-const FormContainer = styled.div`
-  display: block;
-  padding: 10px 0 20px 0;
-  overflow: hidden;
-  clear: both;
-`;
-
-const Form = styled.div`
-  width: 500px;
-  overflow: hidden;
-  clear: both;
-`;
-
-const Input = styled.input`
-  background: white;
-  border: 2px solid rgba(79, 196, 233, 0.7);
-  width: 300px;
-  padding: 10px;
-  margin: 10px;
-  color: rgb(26, 26, 26);
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  background: white;
-  transition: all .4s;
-  cursor: pointer;
-  color: rgb(12, 177, 93);
-  border: 2px solid rgb(12, 177, 93);
-  &:hover {
-    background: rgb(12, 177, 93);
-    color: white;
-  }
-`;
-
-const ResultCount = styled.span`
-  text-align: center;
-  padding: 5px;
-  margin-left: 10px;
-  overflow: hidden;
-  clear: both;
-`;
 
 const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
 
@@ -104,7 +39,7 @@ class SearchForm extends Component {
   }
   handleChange(e) {
     e.preventDefault();
-    if(this.state.query === '') {
+    if(e.target.value === '') {
       this.setState({
         isTrending: true,
       })
@@ -121,11 +56,18 @@ class SearchForm extends Component {
     }
   }
   storeTerms(term) {
+    if(term === '') {
+      this.setState({
+        isTrending: true,
+      })
+      return null;
+    }
     this.state.pastTerms.push(term)
   }
   buildTerms(terms) {
-    return terms.map(term => {
+    return terms.map((term, idx) => {
       return <SearchItem
+              key={idx}
               border="2px solid rgb(12, 177, 93)"
               margin="0 10px 0 10px"
               position="relative"

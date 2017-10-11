@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ResultsContainer } from './SearchForm';
+import { ResultsContainer } from './ui';
 import PropTypes from 'prop-types';
 
 const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';

@@ -1,54 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import { 
+  Container, 
+  Header, 
+  Title, 
+  Name, 
+  Footer, 
+  SocialLink 
+} from './components/ui'
 import SearchForm from './components/SearchForm';
 
 const mainThemes = {
   colors: ['rgba(79, 196, 233, 0.7);', 'rgb(7, 60, 98);', 'rgb(255, 255, 255);'],
 }
-
-const Container = styled.div`
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  text-align: center;
-  overflow: hidden;
-  clear: both;
-  background: ${props => props.background}
-`;
-
-const Header = styled.header`
-  display: block;
-  margin: 0 auto;
-  padding: 25px;
-  font-size: 3rem;
-  font-family: 'Audiowide', cursive;
-  color: white;
-  background: ${props => props.background}
-`;
-
-const Title = styled.h1`
-  padding: 10px;
-  border: 3px solid ${props => props.border};
-`;
-
-const Name = styled.span`
-  color: ${props => props.color}
-`;
-
-const Footer = styled.footer`
-  background: ${props => props.background}
-  color: ${props => props.color}
-  font-size: 18px;
-  padding: 10px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-`;
-
-const SocialLink = styled.a`
-  text-decoration: none;
-  color: ${props => props.color};
-`;
 
 const App = () => {
   return (
