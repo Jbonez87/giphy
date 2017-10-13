@@ -147,10 +147,10 @@ class App extends Component {
           >
             <ul>
               <NavItem>
-                <Link to="/">Trending Gifs</Link>
+                <Link to="/giphy/">Trending Gifs</Link>
               </NavItem>
               <NavItem>
-                <Link to="/search">Search Results</Link>
+                <Link to="/giphy/search/">Search Results</Link>
               </NavItem>
             </ul>
           </NavBar>
@@ -180,8 +180,8 @@ class App extends Component {
             </ul>
             <SearchContainer>
               <Switch>
-                <Route exact path="/" component={Trending} />
-                <Route path="/search" render={() => <SearchView
+                <Route exact path="/giphy/" component={Trending} />
+                <Route path="/giphy/search/" render={() => <SearchView
                                                       gifs={this.state.gifs}
                                                       makeGifs={this.makeGifs}
                                                     />} />
