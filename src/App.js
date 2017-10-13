@@ -150,7 +150,7 @@ class App extends Component {
                 <Link to="/">Trending Gifs</Link>
               </NavItem>
               <NavItem>
-                <Link to="/search">Search Gifs</Link>
+                <Link to="/search">Search Results</Link>
               </NavItem>
             </ul>
           </NavBar>
