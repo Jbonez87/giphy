@@ -101,19 +101,19 @@ class App extends Component {
     await this.getGifs();
   }
   async getGifs() {
-    this.storeTerms(this.state.query)
+    await this.storeTerms(this.state.query)
     let url = new URL(`/v1/gifs/search?api_key=${this.state.apiKey}&q=${this.state.query}&limit=${this.state.limit}`, 'https://api.giphy.com')
     let gifs = await fetch(url)
     // console.log(url);
     let parsedGifs = await gifs.json()
     // console.log(parsedGifs);
-    this.setState({
+    await this.setState({
       querySent: true,
       gifs: parsedGifs.data,
       count: parsedGifs.pagination.count,
       totalCount: parsedGifs.pagination.total_count,
     })
-    this.makeGifs(this.state.gifs)
+    await this.makeGifs(this.state.gifs)
   }
   makeGifs(gifs) {
     return gifs.map(gif => {
