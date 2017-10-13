@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   ResultsContainer,
   FormContainer,
+  SearchItem,
 } from './ui';
 
 // const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
@@ -12,11 +13,12 @@ class SearchView extends Component {
     super(props);
   }
   render() {
+    const propCheck = this.props.gifs ? this.props.makeGifs(this.props.gifs) : <SearchItem>Search for something</SearchItem>
     return (
       <FormContainer>
         <ResultsContainer>
           <ul>
-            {this.props.makeGifs(this.props.gifs)}
+            {propCheck}
           </ul>
         </ResultsContainer>
       </FormContainer>
