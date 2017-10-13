@@ -8,13 +8,38 @@ export const Container = styled.div`
   text-align: center;
   overflow: hidden;
   clear: both;
+  background: ${props => props.background};
+  overflow: hidden;
+  clear: both;
+`;
+
+export const NavBar = styled.nav`
+  width: 100%;
+  display: block;
+  padding: 0 0 10px 0;
   background: ${props => props.background}
+`;
+
+export const NavList = styled.ul`
+  text-align: center;
+`;
+
+export const NavItem = styled.li`
+  width: 50px;
+  padding: 10px;
+  margin: 0 5px 0 0;
+  color: rgb(255, 255, 255);
+  transition: all .4s;
+  &:hover {
+    color: rgb(230, 234, 242);
+  }
 `;
 
 export const Header = styled.header`
   display: block;
   margin: 0 auto;
   padding: 25px;
+  height: 120px;
   font-size: 3rem;
   font-family: 'Audiowide', cursive;
   color: white;
@@ -31,13 +56,16 @@ export const Name = styled.span`
 `;
 
 export const Footer = styled.footer`
-  background: ${props => props.background}
-  color: ${props => props.color}
+  background: ${props => props.background};
+  color: ${props => props.color};
   font-size: 18px;
+  display: block;
   padding: 10px;
   width: 100%;
   position: fixed;
   bottom: 0;
+  overflow: hidden;
+  clear: both;
 `;
 
 export const SocialLink = styled.a`
@@ -65,7 +93,10 @@ export const SearchItem = styled.li`
 `;
 
 export const SearchContainer = styled.div`
-  padding: 10px;
+  padding: ${props => props.padding || '10px'};
+  color: ${props => props.color || 'rgb(255, 255, 255)'};
+  overflow: hidden;
+  clear: both;
 `;
 
 export const GifContainer = styled.div`
@@ -115,8 +146,10 @@ export const Button = styled.button`
 
 export const ResultCount = styled.span`
   text-align: center;
+  display: ${props => props.display || ''};
   padding: 5px;
   margin-left: 10px;
   overflow: hidden;
   clear: both;
+  color: black;
 `;

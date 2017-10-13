@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
-import { ResultsContainer } from './ui';
-import PropTypes from 'prop-types';
+import { 
+  ResultsContainer,
+  SearchItem,
+  GifContainer,
+  Gif,
+  ResultCount,
+  FormContainer
+} from './ui';
 
 const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
 
@@ -19,17 +25,32 @@ class Trending extends Component {
       trending: parsedTrending.data,
     })
   }
+  makeGifs(gifs) {
+    return gifs.map(gif => {
+      return (
+        <SearchItem key={gif.id}>
+          <GifContainer>
+            <Gif
+              src={gif.images.downsized_large.url}
+              alt=""
+            />
+          </GifContainer>
+        </SearchItem>
+      );
+    })
+  }
   render() {
     return (
-      <ResultsContainer>
-        {this.props.makeGifs(this.state.trending)}
-      </ResultsContainer>
+      <FormContainer>
+        <ResultCount display="block">
+          <p>Trending Gifs</p>
+        </ResultCount>
+        <ResultsContainer>
+          {this.makeGifs(this.state.trending)}
+        </ResultsContainer>
+      </FormContainer>
     );
   }
 }
-
-Trending.propTypes = {
-  makeGifs: PropTypes.func.isRequired,
-};
 
 export default Trending;
