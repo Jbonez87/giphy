@@ -13,7 +13,7 @@ class SearchView extends Component {
     super(props);
   }
   render() {
-    const propCheck = this.props.gifs ? this.props.makeGifs(this.props.gifs) : <SearchItem>Search for something</SearchItem>
+    const propCheck = this.props.gifs ? this.props.makeGifs(this.props.gifs) : <SearchItem margin="0 auto">Search for something</SearchItem>
     return (
       <FormContainer>
         <ResultsContainer>

@@ -32,11 +32,8 @@ const mainThemes = {
 }
 
 class App extends Component {
-  constructor() {
-    super();
-    this.terms = [];
-    this.state = {
-      query: '',
+  state = {
+    query: '',
       isTrending: true,
       querySent: false,
       pastTerms: [],
@@ -44,16 +41,30 @@ class App extends Component {
       totalCount: 0,
       limit: 100,
       apiKey: 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf',
-    }
-    this.makeGifs = this.makeGifs.bind(this);
-    this.getGifs = this.getGifs.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.storeTerms = this.storeTerms.bind(this);
-    this.buildTerms = this.buildTerms.bind(this);
-    this.searchAgain = this.searchAgain.bind(this);
   }
-  handleChange(e) {
+  terms = []
+  // constructor() {
+  //   super();
+  //   this.terms = [];
+  //   this.state = {
+  //     query: '',
+  //     isTrending: true,
+  //     querySent: false,
+  //     pastTerms: [],
+  //     count: 0,
+  //     totalCount: 0,
+  //     limit: 100,
+  //     apiKey: 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf',
+  //   }
+  //   this.makeGifs = this.makeGifs.bind(this);
+  //   this.getGifs = this.getGifs.bind(this);
+  //   this.handleChange = this.handleChange.bind(this);
+  //   this.handleKeyUp = this.handleKeyUp.bind(this);
+  //   this.storeTerms = this.storeTerms.bind(this);
+  //   this.buildTerms = this.buildTerms.bind(this);
+  //   this.searchAgain = this.searchAgain.bind(this);
+  // }
+  handleChange = e => {
     e.preventDefault();
     if (this.state.query === '') {
       console.log(this.state.query)
@@ -62,13 +73,13 @@ class App extends Component {
       [e.target.name]: e.target.value,
     });
   }
-  handleKeyUp(e) {
+  handleKeyUp = e => {
     e.preventDefault();
     if (e.keyCode === 13) {
       this.getGifs();
     }
   }
-  storeTerms(term) {
+  storeTerms = term => {
     if (term === '') {
       console.log(term);
     }
@@ -101,8 +112,9 @@ class App extends Component {
     await this.getGifs();
   }
   async getGifs() {
+    let {query, apiKey, limit} = this.state
     await this.storeTerms(this.state.query)
-    let url = new URL(`/v1/gifs/search?api_key=${this.state.apiKey}&q=${this.state.query}&limit=${this.state.limit}`, 'https://api.giphy.com')
+    let url = new URL(`/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=${limit}`, 'https://api.giphy.com')
     let gifs = await fetch(url)
     // console.log(url);
     let parsedGifs = await gifs.json()
@@ -130,7 +142,15 @@ class App extends Component {
     })
   }
   render() {
-    let searchTerms = this.state.querySent ? this.buildTerms(this.state.pastTerms) : null;
+    let {
+      querySent,
+      pastTerms,
+      query,
+      count,
+      totalCount,
+      gifs
+    } = this.state
+    let searchTerms = querySent ? this.buildTerms(pastTerms) : null
     return (
       <Router>
         <Container background={mainThemes.colors[0]}>
@@ -159,7 +179,7 @@ class App extends Component {
               <Input
                 type="text"
                 name="query"
-                value={this.state.query}
+                value={query}
                 onChange={this.handleChange}
                 onKeyUp={this.handleKeyUp}
                 placeholder="Search for gifs!"
@@ -173,7 +193,7 @@ class App extends Component {
               </Button>
             </Form>
             <ResultCount>
-              {this.state.count} of {this.state.totalCount} results
+              {count} of {totalCount} results
             </ResultCount>
             <ul>
               {searchTerms}
@@ -182,7 +202,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/giphy/" component={Trending} />
                 <Route path="/giphy/search/" render={() => <SearchView
-                                                      gifs={this.state.gifs}
+                                                      gifs={gifs}
                                                       makeGifs={this.makeGifs}
                                                     />} />
               </Switch>
@@ -200,7 +220,7 @@ class App extends Component {
                 target="_blank"
               >
                 John Castrillon
-          </SocialLink>
+                </SocialLink>
             </p>
           </Footer>
         </Container>
