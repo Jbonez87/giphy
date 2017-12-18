@@ -76,7 +76,7 @@ export const SocialLink = styled.a`
 
 export const ResultsContainer = styled.div`
   position: absolute;
-  display: grid;
+  display: flex;
   flex-flow: row wrap;
   justify-content: center;
   padding: 20px;
