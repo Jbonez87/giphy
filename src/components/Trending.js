@@ -11,11 +11,8 @@ import {
 const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
 
 class Trending extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      trending: [],
-    }
+  state = {
+    trending: []
   }
   async componentDidMount() {
     let url = new URL(`/v1/gifs/trending?api_key=${apiKey}&limit=100`, 'https://api.giphy.com')

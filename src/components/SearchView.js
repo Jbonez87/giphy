@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   ResultsContainer,
   FormContainer,
   SearchItem,
-} from './ui';
-
-// const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
+} from './ui'
 
 class SearchView extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    const propCheck = this.props.gifs ? this.props.makeGifs(this.props.gifs) : <SearchItem margin="0 auto">Search for something</SearchItem>
+    const { gifs, makeGifs } = this.props
+    const propCheck = gifs ? makeGifs(gifs) : <SearchItem margin="0 auto">Search for something</SearchItem>
     return (
       <FormContainer>
         <ResultsContainer>
@@ -22,7 +18,7 @@ class SearchView extends Component {
           </ul>
         </ResultsContainer>
       </FormContainer>
-    );
+    )
   }
 }
 
@@ -31,4 +27,4 @@ SearchView.propTypes = {
   gifs: PropTypes.array.isRequired,
 }
 
-export default SearchView;
+export default SearchView

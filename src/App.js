@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
   Route,
@@ -23,9 +23,9 @@ import {
   FormContainer,
   ResultCount,
   SearchContainer
-} from './components/ui';
-import SearchView from './components/SearchView';
-import Trending from './components/Trending';
+} from './components/ui'
+import SearchView from './components/SearchView'
+import Trending from './components/Trending'
 
 const mainThemes = {
   colors: ['rgba(79, 196, 233, 0.7);', 'rgb(7, 60, 98);', 'rgb(255, 255, 255);'],
@@ -43,27 +43,6 @@ class App extends Component {
       apiKey: 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf',
   }
   terms = []
-  // constructor() {
-  //   super();
-  //   this.terms = [];
-  //   this.state = {
-  //     query: '',
-  //     isTrending: true,
-  //     querySent: false,
-  //     pastTerms: [],
-  //     count: 0,
-  //     totalCount: 0,
-  //     limit: 100,
-  //     apiKey: 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf',
-  //   }
-  //   this.makeGifs = this.makeGifs.bind(this);
-  //   this.getGifs = this.getGifs.bind(this);
-  //   this.handleChange = this.handleChange.bind(this);
-  //   this.handleKeyUp = this.handleKeyUp.bind(this);
-  //   this.storeTerms = this.storeTerms.bind(this);
-  //   this.buildTerms = this.buildTerms.bind(this);
-  //   this.searchAgain = this.searchAgain.bind(this);
-  // }
   handleChange = e => {
     e.preventDefault();
     if (this.state.query === '') {
@@ -71,7 +50,7 @@ class App extends Component {
     }
     this.setState({
       [e.target.name]: e.target.value,
-    });
+    })
   }
   handleKeyUp = e => {
     e.preventDefault();
@@ -84,7 +63,6 @@ class App extends Component {
       console.log(term);
     }
     this.terms.push(term)
-    // this.state.pastTerms.push(term)
     this.setState({
       pastTerms: this.terms,
     })
@@ -112,13 +90,15 @@ class App extends Component {
     await this.getGifs();
   }
   async getGifs() {
-    let {query, apiKey, limit} = this.state
+    let {
+      query, 
+      apiKey, 
+      limit
+    } = this.state
     await this.storeTerms(this.state.query)
     let url = new URL(`/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=${limit}`, 'https://api.giphy.com')
-    let gifs = await fetch(url)
-    // console.log(url);
-    let parsedGifs = await gifs.json()
-    // console.log(parsedGifs);
+    let gifsData = await fetch(url)
+    let parsedGifs = await gifsData.json()
     await this.setState({
       querySent: true,
       gifs: parsedGifs.data,
@@ -138,7 +118,7 @@ class App extends Component {
             />
           </GifContainer>
         </SearchItem>
-      );
+      )
     })
   }
   render() {
@@ -225,8 +205,8 @@ class App extends Component {
           </Footer>
         </Container>
       </Router>
-    );
+    )
   }
 }
 
-export default App;
+export default App
