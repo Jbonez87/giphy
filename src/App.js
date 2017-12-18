@@ -90,7 +90,7 @@ class App extends Component {
     await this.getGifs();
   }
   async getGifs() {
-    let {
+    const {
       query, 
       apiKey, 
       limit
@@ -122,7 +122,7 @@ class App extends Component {
     })
   }
   render() {
-    let {
+    const {
       querySent,
       pastTerms,
       query,
@@ -130,7 +130,7 @@ class App extends Component {
       totalCount,
       gifs
     } = this.state
-    let searchTerms = querySent ? this.buildTerms(pastTerms) : null
+    const searchTerms = querySent ? this.buildTerms(pastTerms) : null
     return (
       <Router>
         <Container background={mainThemes.colors[0]}>

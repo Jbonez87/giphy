@@ -15,7 +15,7 @@ class Trending extends Component {
     trending: []
   }
   async componentDidMount() {
-    let url = new URL(`/v1/gifs/trending?api_key=${apiKey}&limit=100`, 'https://api.giphy.com')
+    const url = new URL(`/v1/gifs/trending?api_key=${apiKey}&limit=100`, 'https://api.giphy.com')
     let trendingGifs = await fetch(url)
     let parsedTrending = await trendingGifs.json()
     this.setState({
