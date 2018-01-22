@@ -1,5 +1,27 @@
 // import React from 'react';
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
+
+const clearFix = () => css`
+  overflow: hidden;
+  clear: both;
+`
+
+const sizes = {
+  giant: 1170,
+  desktop: 992,
+  tablet: 768,
+  phone: 376
+}
+
+export const media = Object.keys(sizes).reduce((a, label) => {
+  const emSize = sizes[label] / 16
+  a[label] = (...args) => css`
+    @media (max-width: ${emSize}em) {
+      ${css(...args)}
+    }
+  `
+  return a
+}, {})
 
 export const Container = styled.div`
   padding: 0;
@@ -9,8 +31,7 @@ export const Container = styled.div`
   overflow: hidden;
   clear: both;
   background: ${props => props.background};
-  overflow: hidden;
-  clear: both;
+  ${clearFix()};
 `
 
 export const NavBar = styled.nav`
@@ -37,19 +58,23 @@ export const NavItem = styled.li`
 `
 
 export const Header = styled.header`
-  display: block;
+  display: grid;
   margin: 0 auto;
   padding: 25px;
   height: 120px;
   font-size: 3rem;
   font-family: 'Audiowide', cursive;
   color: white;
-  background: ${props => props.background}
+  background: ${props => props.background};
 `
 
 export const Title = styled.h1`
   padding: 10px;
   border: 3px solid ${props => props.border};
+  ${media.tablet`
+    height: 65px;
+    font-size: 20px;
+  `}
 `
 
 export const Name = styled.span`

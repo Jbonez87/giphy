@@ -34,13 +34,13 @@ const mainThemes = {
 class App extends Component {
   state = {
     query: '',
-      isTrending: true,
-      querySent: false,
-      pastTerms: [],
-      count: 0,
-      totalCount: 0,
-      limit: 100,
-      apiKey: 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf',
+    isTrending: true,
+    querySent: false,
+    pastTerms: [],
+    count: 0,
+    totalCount: 0,
+    limit: 100,
+    apiKey: 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf',
   }
   terms = []
   handleChange = e => {
@@ -82,12 +82,12 @@ class App extends Component {
     })
   }
   async searchAgain(e) {
-    e.preventDefault();
+    e.preventDefault()
     await this.setState({
       isTrending: false,
       query: e.target.innerText,
     })
-    await this.getGifs();
+    await this.getGifs()
   }
   async getGifs() {
     const {
