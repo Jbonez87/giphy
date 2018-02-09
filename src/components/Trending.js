@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { 
   ResultsContainer,
   SearchItem,
@@ -6,13 +6,17 @@ import {
   Gif,
   ResultCount,
   FormContainer
-} from './ui';
+} from './ui'
 
-const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf';
+const apiKey = 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf'
 
 class Trending extends Component {
   state = {
     trending: []
+  }
+  constructor() {
+    super()
+    this.makeGifs = this.makeGifs.bind(this)
   }
   async componentDidMount() {
     const url = new URL(`/v1/gifs/trending?api_key=${apiKey}&limit=100`, 'https://api.giphy.com')
@@ -50,4 +54,4 @@ class Trending extends Component {
   }
 }
 
-export default Trending;
+export default Trending

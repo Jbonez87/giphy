@@ -42,8 +42,18 @@ class App extends Component {
     limit: 100,
     apiKey: 'KIASvvgLXop9U3lEWa1EVuo2VWL3IoMf',
   }
+  constructor() {
+    super()
+      this.handleChange = this.handleChange.bind(this)
+      this.handleKeyUp = this.handleKeyUp.bind(this)
+      this.storeTerms = this.storeTerms.bind(this)
+      this.buildTerms = this.buildTerms.bind(this)
+      this.searchAgain = this.searchAgain.bind(this)
+      this.getGifs = this.getGifs.bind(this)
+      this.makeGifs = this.makeGifs.bind(this)
+  }
   terms = []
-  handleChange = e => {
+  handleChange(e) {
     e.preventDefault();
     if (this.state.query === '') {
       console.log(this.state.query)
@@ -52,13 +62,13 @@ class App extends Component {
       [e.target.name]: e.target.value,
     })
   }
-  handleKeyUp = e => {
+  handleKeyUp(e) {
     e.preventDefault();
     if (e.keyCode === 13) {
       this.getGifs();
     }
   }
-  storeTerms = term => {
+  storeTerms(term) {
     if (term === '') {
       console.log(term);
     }
